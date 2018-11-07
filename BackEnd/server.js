@@ -4,7 +4,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 
 var mongoose = require('mongoose');
-var mongoDB = 'mongodb://admin:hello123@ds239903.mlab.com:39903/lab5';
+var mongoDB = 'mongodb://Admin:hello123@ds137913.mlab.com:37913/datarepdatabase';
 mongoose.connect(mongoDB);
 
 var Schema = mongoose.Schema;
@@ -21,8 +21,8 @@ app.use(bodyParser.json());
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
     next();
     });
     
@@ -35,6 +35,7 @@ app.post('/name', function(req, res){
 app.get('/', function (req, res) {
    res.send('Hello from Express');
 })
+
 
 app.post('/api/posts', function(req, res){
     console.log("post successful");
@@ -57,6 +58,11 @@ app.get('/api/posts', function(req, res){
  
 })
 
+app.delete('/api/posts/:id', function(req, res){
+    console.log("Deleting item " + req.params.id);
+    PostModel.deleteOne({_id: req.params.id}, 
+    function(err){});
+})
 
 var server = app.listen(8081, function () {
    var host = server.address().address

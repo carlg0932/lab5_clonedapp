@@ -22,4 +22,10 @@ export class PostDetailsComponent implements OnInit {
 
 
    }
+   //delete record from db. It's on button in the HTML
+   onDelete(id:String){
+     console.log(id);
+     this.ps.deletePost(id).subscribe();
+       this.ngOnInit();
+     }
 }
